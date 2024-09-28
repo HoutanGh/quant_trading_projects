@@ -8,7 +8,12 @@ data = yf.download('^GSPC', start='2010-01-01', end='2023-01-01')
 
 data['Returns'] = data['Adj Close'].pct_change().dropna()
 
-data['Returns'].plot(title=' Daily Returns of S&P 500')
+fig, axs = plt.subplots(2, 3, figsize=(10,10))
+
+axs[0][0].plot(data.index, data['Returns'])
+axs[0][0].set_title('Daily Returns')
+axs[0][0].set_ylabel('Returns')
+axs[0][0].grid(True)
 
 # making sure that data is numeric
 data['Returns'] = pd.to_numeric(data['Returns'], errors='coerce')
@@ -35,11 +40,54 @@ forecasts = garch_result.forecast(horizon=5)
 # extract the forecasted variance for the next 5 days
 forecasted_variance = forecasts.variance.iloc[-1]  # getting only the last forecasted row
 
-# create a plot
-plt.figure(figsize=(10,6))
-plt.plot(range(1, 6), forecasted_variance.values, marker='o')
-plt.title('5-Day Volatility Forecast')
-plt.xlabel('Forecast Horizon (Days)')
-plt.ylabel('Forecasted Variance')
-plt.xticks(ticks=range(1, 6))  # ensure correct ticks for each forecasted day
+# plot 5-day volatility forecast
+axs[0][1].plot(range(1, 6), forecasted_variance.values, marker='o', label='Forecasted Variance')
+axs[0][1].set_title('5-Day Volatility Forecast')
+axs[0][1].set_xlabel('Forecast Horizon (Days)')
+axs[0][1].set_ylabel('Forecasted Variance')
+axs[0][1].grid(True)
+
+# in-sample conditional volatiltiy to see how well the garch model captures volatility clustering
+
+data['Volatility'] = garch_result.conditional_volatility
+
+# plotting
+
+# plot conditional volatility
+axs[1][0].plot(data.index, data['Volatility'], label='Conditional Volatility')
+axs[1][0].set_title('S&P 500 Conditional Volatility (In-sample)')
+axs[1][0].set_xlabel('Date')
+axs[1][0].set_ylabel('Volatility')
+axs[1][0].grid(True)
+
+# plt.show()
+
+# plotting residuals
+
+residuals = garch_result.resid
+
+# print(residuals)
+axs[1][1].plot(residuals)
+axs[1][1].set_title('Residuals of the GARCH Model')
+axs[1][1].grid(True)
+
+# plt.show()
+
+# using histogram to check if residuals are normally distributed 
+
+axs[0][2].hist(residuals, bins=50, alpha=0.75, color='blue')
+axs[0][2].set_title('Residuals Disitribution')
+axs[0][2].grid(True)
+
+# plt.show()
+
+import scipy.stats as stats
+
+stats.probplot(residuals, dist='norm', plot=plt)
+plt.title('QQ Plot of Residuals')
+plt.grid(True)
 plt.show()
+
+# trying out different GARCH specifications
+
+# egarch model - captures asymmetries in volatility
