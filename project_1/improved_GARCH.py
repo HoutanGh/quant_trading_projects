@@ -87,4 +87,50 @@ axs[1, 2].set_title('ACF of Residuals')
 plt.tight_layout()
 plt.show()
 
+# simulating
 
+sim_data = garch_result.simulate(params=garch_result.params, nobs=5, method='monte-carlo', repetitions=1000)
+simulated_returns = sim_data['data']
+axs[2, 0].plot(simulated_returns.T, alpha=0.01, color='blue')
+axs[2, 0].set_title('Simulated Returns for 5 Days')
+
+plt.tight_layout()
+plt.show()
+# # backtesting parameters
+
+# test_size = 200
+# train_size = len(data) - test_size
+
+# forecasted_volatility = []
+# realised_volatility = []
+
+# # rolling forecasts
+
+# for i in range(train_size, len(data)):
+#     train_data = data['Returns'].iloc[:i]
+
+#     garch_model = arch_model(train_data, p=best_order[0], q=best_order[1])
+#     garch_result = garch_model.fit(disp='off')
+
+#     # forecast volatility for the next period
+
+#     forecast = garch_result.forecast(horizon=1)
+#     f_vol = np.sqrt(forecast.variance.values[-1, 0])
+#     forecasted_volatility.append(f_vol)
+
+#     # realised volatility
+#     r_vol = np.abs(data['Returns'].iloc[:i])
+#     realised_volatility.append(r_vol)
+
+# # plotting the forecasted vs. realized volatility
+ 
+# fig, ax = plt.subplots(figsize=(10, 5))
+# ax.plot(forecasted_volatility, label='Forecasted Volatility')
+# ax.plot(realised_volatility, label='Realised Volatility')
+# ax.set_title('Rolling Forecast vs. Realised Volatility')
+# ax.set_xlabel('Date')
+# ax.set_ylabel('Volatility')
+# ax.legend()
+# ax.grid(True)
+# plt.tight_layout()
+# plt.show()
