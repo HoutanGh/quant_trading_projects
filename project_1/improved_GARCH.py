@@ -84,15 +84,16 @@ axs[0, 2].set_title('QQ Plot of Residuals')
 # ACF Plot
 plot_acf(residuals, lags=30, ax=axs[1, 2])
 axs[1, 2].set_title('ACF of Residuals')
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
 # simulating
 
-sim_data = garch_result.simulate(params=garch_result.params, nobs=5, method='monte-carlo', repetitions=1000)
-simulated_returns = sim_data['data']
-axs[2, 0].plot(simulated_returns.T, alpha=0.01, color='blue')
-axs[2, 0].set_title('Simulated Returns for 5 Days')
+sim_data = garch_model.simulate(params=garch_result.params, nobs=5, repetitions=1000)
+sim_data.head()
+# simulated_returns = sim_data['data']
+# axs[2, 0].plot(simulated_returns.T, alpha=0.01, color='blue')
+# axs[2, 0].set_title('Simulated Returns for 5 Days')
 
 plt.tight_layout()
 plt.show()

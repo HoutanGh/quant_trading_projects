@@ -185,7 +185,7 @@ axs[1][2].grid(True)
 
 from scipy.stats import norm
 
-# value at risk for expected loss at a given confidence over 1 day
+# Value-at-Risk for expected loss at a given confidence over 1 day
 
 confidence_level = 0.95
 z_score = norm.ppf(confidence_level)
