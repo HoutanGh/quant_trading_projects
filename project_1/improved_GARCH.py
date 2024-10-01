@@ -15,6 +15,9 @@ data['Returns'] = data['Adj Close'].pct_change() # removed pd.to_numeric because
 data.dropna(inplace=True)
 # to prevent convergence issues
 data['Returns'] = data['Returns'] * 100
+# print(data.head())
+plt.plot(data.index, data['Adj Close'])
+# plt.show()
 
 # print(data)
 
@@ -36,7 +39,7 @@ for p in range(1, 5):
         except:
             continue
 
-print(best_order)    
+# print(best_order)    
 # p = 2, q = 2 seems the best option changes from 1, 2 after rescaling
 # AIC favours models that better capture the variance in the reutrns at the new scale so 2, 2
 
@@ -49,8 +52,8 @@ garch_result = garch_model.fit(disp='off')
 lb_resid = acorr_ljungbox(garch_result.resid, lags=[10], return_df=True)
 lb_squared = acorr_ljungbox(garch_result.resid ** 2, lags=[10], return_df=True)
 
-print("Ljung-Box Test on Residuals:\n", lb_resid)
-print("Ljung-Box Test on Squared Residuals:\n", lb_squared)
+# print("Ljung-Box Test on Residuals:\n", lb_resid)
+# print("Ljung-Box Test on Squared Residuals:\n", lb_squared)
 
 residuals = garch_result.resid
 
@@ -88,43 +91,51 @@ axs[1, 2].set_title('ACF of Residuals')
 # plt.show()
 
 # simulating
+# print(garch_result.summary())
+# print(garch_result.params)
 
-sim_data = garch_model.simulate(params=garch_result.params, nobs=5, repetitions=1000)
-sim_data.head()
-# simulated_returns = sim_data['data']
-# axs[2, 0].plot(simulated_returns.T, alpha=0.01, color='blue')
-# axs[2, 0].set_title('Simulated Returns for 5 Days')
+# apparently .simulate doesn't take in repetitions as paramter with constant mean or zero mean
+sim_data = garch_model.simulate(params=garch_result.params, nobs=5)
+print(sim_data.head())
+
+simulated_returns = sim_data['data']
+# print(simulated_returns.T)
+axs[2, 0].plot(simulated_returns.T, alpha=0.01, color='blue')
+axs[2, 0].set_title('Simulated Returns for 5 Days')
 
 plt.tight_layout()
-plt.show()
-# # backtesting parameters
+# plt.show()
 
-# test_size = 200
-# train_size = len(data) - test_size
+# backtesting parameters
 
-# forecasted_volatility = []
-# realised_volatility = []
+test_size = 200
+train_size = len(data) - test_size
 
-# # rolling forecasts
+forecasted_volatility = []
+realised_volatility = []
 
-# for i in range(train_size, len(data)):
-#     train_data = data['Returns'].iloc[:i]
+# rolling forecasts
 
-#     garch_model = arch_model(train_data, p=best_order[0], q=best_order[1])
-#     garch_result = garch_model.fit(disp='off')
+for i in range(train_size, len(data)):
+    train_data = data['Returns'].iloc[:i]
 
-#     # forecast volatility for the next period
+    garch_model = arch_model(train_data, p=best_order[0], q=best_order[1])
+    garch_result = garch_model.fit(disp='off')
 
-#     forecast = garch_result.forecast(horizon=1)
-#     f_vol = np.sqrt(forecast.variance.values[-1, 0])
-#     forecasted_volatility.append(f_vol)
+    # forecast volatility for the next period
 
-#     # realised volatility
-#     r_vol = np.abs(data['Returns'].iloc[:i])
-#     realised_volatility.append(r_vol)
+    forecast = garch_result.forecast(horizon=1)
+    f_vol = np.sqrt(forecast.variance.values[-1, 0])
+    forecasted_volatility.append(f_vol)
 
-# # plotting the forecasted vs. realized volatility
+    # realised volatility
+    r_vol = np.abs(data['Returns'].iloc[:i])
+    realised_volatility.append(r_vol)
+
+# plotting the forecasted vs. realized volatility
  
+print(realised_volatility[:5])
+
 # fig, ax = plt.subplots(figsize=(10, 5))
 # ax.plot(forecasted_volatility, label='Forecasted Volatility')
 # ax.plot(realised_volatility, label='Realised Volatility')
