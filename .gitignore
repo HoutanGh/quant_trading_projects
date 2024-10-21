@@ -3,4 +3,6 @@ quant_trading_env/
 __pycache__/
 .vscode
 .DS_Store
+*.swp
+*.swo
 
