@@ -5,6 +5,12 @@ import yfinance as yf
 import random as rd
 from sklearn.model_selection import train_test_split
 
+global colorlist
+colorlist = ['#5398d9',
+             '#d75b66',
+             '#edd170',
+             '#02231c',
+             'k']
 
 def monte_carlo(data, test_size, simulations):
     
@@ -44,21 +50,62 @@ def monte_carlo(data, test_size, simulations):
 
         if std_sim < std:
             best = i
-    print(forecast_horizon, pred_time_series, best)
+    # print(forecast_horizon, pred_time_series, best)
     return forecast_horizon, pred_time_series, best
 
 
+def plot(df, forecast_horizon, d, best, ticker):
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    for i in range(int(len(d))):
+        if i != best:
+            ax.plot(df.index[:len(df) - forecast_horizon], \
+                d[i][:len(df) - forecast_horizon], \
+                    alpha = 0.05)
+    ax.plot(df.index[:len(df) - forecast_horizon], \
+        d[best][:len(df) - forecast_horizon], \
+            c = '#5398d9', linewidth = 5, label = 'Best Fitted')
+    df['Close'].iloc[:len(df)-forecast_horizon].plot(c = '#d75b66', linewidth = 5, label = 'Actual')
+    ax.set_title(f'Monte Carlo Simulation\nTicker: {ticker}')
+    ax.legend(loc=0)
+    ax.set_ylabel('Price')
+    ax.set_xlabel('Date')
+    plt.show()
 
+    # comparing best fitted plus forecast with the actual history
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.plot(d[best], label = 'Best Fitted', c = '#edd170')
+    ax.plot(df['Close'].tolist(), label= 'Actual', c = '#02231c')
+    ax.axvline(len(df) - forecast_horizon, linestyle = ':', c = 'k')
+    ax.text(len(df) - forecast_horizon-50, \
+             max(max(df['Close']),max(d[best])),'Training', \
+             horizontalalignment = 'center', \
+             verticalalignment = 'center')
+    ax.text(len(df) - forecast_horizon+50, \
+             max(max(df['Close']),max(d[best])),'Testing', \
+             horizontalalignment = 'center', \
+             verticalalignment = 'center')
+
+    ax.set_title(f'Training versus Testing\nTicker: {ticker}\n')
+    ax.legend(loc=0)
+    ax.set_ylabel('Price')
+    ax.set_xlabel('T+Days')
+    plt.show()
+      
 
 
 def main():
 
     start = '2010-01-01'
     end = '2020-01-01'
-    ticker = 'GE'
+    ticker = 'GME'
     df = yf.download(ticker, start=start, end=end)
     df.index = pd.to_datetime(df.index)
-    monte_carlo(df, 0.2, 10)
+    forecast_horizon, d, best = monte_carlo(df, 0.2, 10)
+    plot(df, forecast_horizon, d, best, ticker)
 
 if __name__ == '__main__':
     main()
