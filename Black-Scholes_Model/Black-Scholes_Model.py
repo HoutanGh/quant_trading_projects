@@ -1,6 +1,9 @@
 import numpy as np
 from scipy.stats import norm
 import yfinance as yf 
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 
 
 def black_scholes(S, K, T, r, sigma, option_type="call"):
@@ -38,6 +41,7 @@ def black_scholes(S, K, T, r, sigma, option_type="call"):
         "Rho": rho / 100      # Scaled for 1% change in interest rate
     }
 
+
 def get_stock_data(ticker):
     ticker = yf.Ticker(ticker)
     S = ticker.history(period="1d")['Close'][0]
@@ -46,9 +50,6 @@ def get_stock_data(ticker):
 
     return S, sigma
 
-
-    
-    
 
 if __name__ == "__main__":
     # Parameters for an option
