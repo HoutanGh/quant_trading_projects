@@ -7,10 +7,10 @@ Aims:
 - [x] Complete Monte Carlo
 - [ ] Comment Monte Carlo and do README.md
 - [x] Fix the GitHub repos (decide if want to have each folder its own repo)
-- [ ] Black-Scholes Model
-- [ ] Heston Model
+- [x] Black-Scholes Model
+- [ ] Heston B-S  Model
 - [ ] SABR Model
-- [ ] Start looking into Arbitrage Strategies1
+- [ ] Start looking into Arbitrage Strategies
 
 
 
