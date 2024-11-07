@@ -13,7 +13,11 @@ Vega - how sensitive to volatility (same for calls and puts)
 Theta - sensitivty to time decay (how much the option loses each day as it reaches expiration) 
 Rho - sensitivty to risk free interest rate
 
+#### Accuracy test
 
 #### Information I should know 
 
-derivative, options, futures, swaps
+derivative, options, futures, swap
+
+
+s
