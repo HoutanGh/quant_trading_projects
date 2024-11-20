@@ -31,7 +31,7 @@ derivative, options, futures, swa
 
 
 ## AIM:
-[x] main.py file with ticker 
-[x] graph files
-[x] backtest files
-[x] model files 
+- [] main.py file with ticker 
+- [] graph files
+- [] backtest files
+- [] model files 
