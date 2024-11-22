@@ -21,11 +21,13 @@ def black_scholes(S, K, T, r, sigma, option_type="call"):
         delta = N_d1
         theta = - (S * pdf_d1 * sigma) / (2 * np.sqrt(T)) - r * K * np.exp(-r * T) * norm.cdf(d2)
         rho = K * T * np.exp(-r * T) * norm.cdf(d2)
+
     elif option_type == "put":
         price = K * np.exp(-r * T) * norm.cdf(-d2) - S * norm.cdf(-d1)
         delta = N_neg_d1 - 1
         theta = - (S * pdf_d1 * sigma) / (2 * np.sqrt(T)) + r * K * np.exp(-r * T) * norm.cdf(-d2)
         rho = -K * T * np.exp(-r * T) * norm.cdf(-d2)
+        
     else:
         raise ValueError("option_type must be 'call' or 'put'")
 
