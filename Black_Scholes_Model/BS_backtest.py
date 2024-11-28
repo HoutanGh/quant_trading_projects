@@ -3,8 +3,8 @@ import pandas as pd
 from scipy.stats import norm
 import yfinance as yf
 import matplotlib.pyplot as plt
-from Black_Scholes_Model import get_stock_data
-from Black_Scholes_Model import black_scholes
+from BS_model import get_stock_data
+from BS_model import black_scholes
 from datetime import datetime
 
 
@@ -53,6 +53,10 @@ def BS_backtest(ticker, start_date, end_date, K_multiplier=1.05, option_type= "c
         option_prices.append(option_price)
         option_prices
         delta = greeks['Delta']
+        gamma = greeks['Gamma']
+        theta = greeks['Theta']
+        vega = greeks['Vega']
+        rho = greeks['Rho']
         delta_history.append(delta)
 
         # Trading logic: Enter or exit position based on delta
@@ -87,14 +91,14 @@ def BS_backtest(ticker, start_date, end_date, K_multiplier=1.05, option_type= "c
         print(f"{month}: ${profit:.2f}")
 
     # Plot results
-    plt.figure(figsize=(12, 6))
-    plt.plot(data['Date'], daily_pnl, label='Cumulative P&L')
-    plt.axhline(0, color='red', linestyle='--', label='Break-even')
-    plt.xlabel('Date')
-    plt.ylabel('Profit and Loss ($)')
-    plt.title(f'{ticker} Option Trading Strategy P&L (Dynamic Strike)')
-    plt.legend()
-    plt.grid(True)
+    # plt.figure(figsize=(12, 6))
+    # plt.plot(data['Date'], daily_pnl, label='Cumulative P&L')
+    # plt.axhline(0, color='red', linestyle='--', label='Break-even')
+    # plt.xlabel('Date')
+    # plt.ylabel('Profit and Loss ($)')
+    # plt.title(f'{ticker} Option Trading Strategy P&L (Dynamic Strike)')
+    # plt.legend()
+    # plt.grid(True)
     # plt.show()
 
     return final_pnl, trades, monthly_pnl
@@ -107,6 +111,6 @@ if __name__ == "__main__":
     option_type = "call"  # 'call' or 'put'
     r = 0.05
 
-    BS_backtest(ticker, start_date, end_date, K_multiplier, option_type, r=0.05, delta_threshold=0.02)
+    BS_backtest(ticker, start_date, end_date, K_multiplier, option_type, r=0.05, delta_threshold=0.01070507813902347)
 
     

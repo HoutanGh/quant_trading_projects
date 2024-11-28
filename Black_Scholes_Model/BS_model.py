@@ -64,6 +64,7 @@ if __name__ == "__main__":
     put_price, put_greeks = black_scholes(S, K, T, r, sigma, option_type="put")
 
     # Print results
+    print(S)
     print(f"Call Option Price: {call_price}")
     print(f"Put Option Price: {put_price}")
     

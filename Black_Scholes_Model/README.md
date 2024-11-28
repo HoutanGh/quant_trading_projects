@@ -1,5 +1,7 @@
 ##### These are mostly notes for myself 
 
+- BS model calculates the fair value of an option
+
 - Gonna do Black-Scholes Model then gonna do it with heston probability then something with Monte Carlo.
 
 - Black-Scholes assumes that the volatility is constant which is not true.
@@ -23,15 +25,23 @@ Trying to calculate the fair price of an option by taking into account risk and 
 - Percentage error by strike price
 - Strike price is the fixed price at which the holder of an options contract can buy or sell.
 
+### Backtest
 
+### Bayesian optimisation
+- objective function tells optimiser how good each parameter combination is
+- BO initially testing a few random combinations of parameters
 
 #### Information I should know 
 
 derivative, options, futures, swa
+- the closer the stock price is to the strike price, the more valuable the option becomes
+- higher the time to expiration, higher the premium
 
 
 ## AIM:
-- [ ] main.py file with ticker 
+- [x] understand the backtest more
+- [x] main.py file with ticker 
 - [ ] graph files
 - [ ] backtest files
 - [ ] model files 
+- [ ] heston BS Model
