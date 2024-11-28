@@ -11,7 +11,4 @@ Aims:
 - [ ] Heston B-S  Model
 - [ ] SABR Model
 - [ ] Start looking into Arbitrage Strategies
-
-
-
-
+- [ ] Monte Carlo for risk modelling
