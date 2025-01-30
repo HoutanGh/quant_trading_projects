@@ -1,7 +1,7 @@
 ### pair trading
-- data pipeline
-- pair selection
-- trading signals
+- data managment
+- cointegration
+- signals
 - backtesting framework
 - execution enginer (interactive brokers when I get money)
 - risk management
