@@ -31,5 +31,6 @@ class CoinIntegrationTester:
         def compute_hedge_ratio(self, series_y, series_x):
             X = sm.add_constant(series_x)
             model = sm.OLS(series_y, X).fit() # OLS regression model with series_y as dependent and X as independent
+            
             return model.params[series_x.name]
                         
