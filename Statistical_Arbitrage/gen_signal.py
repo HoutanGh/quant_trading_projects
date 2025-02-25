@@ -37,6 +37,6 @@ class MeanReversionSignalGenerator:
             
             signals.append(current_position)
 
-        return pd.Series(signals, index=, name='signal')
+        return pd.Series(signals, index=spread.index, name='signal')
     
-    
+
