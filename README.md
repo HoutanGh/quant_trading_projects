@@ -12,3 +12,9 @@ Aims:
 - [ ] SABR Model
 - [ ] Start looking into Arbitrage Strategies
 - [ ] Monte Carlo for risk modelling
+
+
+
+### Notes:
+- POLA seems like a good quanting stock
+
