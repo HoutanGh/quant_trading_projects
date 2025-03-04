@@ -37,9 +37,11 @@ I actually dont even understand it yet.
 
 ## Implementation
 1. Asset Selection
+- through initial cointegration
+### Rest is either real-time data or backtesting
 2. Calculate spread
 3. Determine the mean and SD
-4. Set  trading rules
+4. Set trading rules
 5. Execute Trades
 6. Risk Management
 
