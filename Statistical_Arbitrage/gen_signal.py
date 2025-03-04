@@ -19,7 +19,7 @@ class MeanReversionSignalGenerator:
         zscore = (spread - mean_rolling) / std_rolling
         return zscore
     
-    def genereate_signals(self, spread: pd.Series) -> pd.Series:
+    def generate_signals(self, spread: pd.Series) -> pd.Series:
         
         zscore = self.calculate_zscore(spread)
         signals = []

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import yfinance as yf
 
 class Data_Manager:
     # cleaning of financial data
@@ -27,5 +28,7 @@ class Data_Manager:
     
     def get_closing_prices(self, df, price_col,):
         return df[price_col]
+    
+    
         
         
