@@ -12,9 +12,10 @@
     - just get first with yfinance
     - then for proper backtesting, clean excel source
     - then live data 
-- cointegration
+- cointegration (can just be a function tbh)
     - just between two
     - maybe Johansen test for multiple (maybe not anytime soon)
+    - has real time functionality (or just through every loop of the actual model run the cointegration?)
 - signal
     - buy/hold/sell signals based on the z-score
     - z-score: identifies how far the spread deviates from its mean       
