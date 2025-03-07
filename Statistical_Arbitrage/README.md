@@ -1,4 +1,12 @@
-### pair trading
+##### Plan
+Going to do pairs trading model first, going to watch the video by quantbuild. Then research about Statistical Arbitrage as my understanding isn't good enough yet.
+[ ] - quantbuild video
+[ ] - pairs trading model
+[ ] - research on SA
+
+
+
+### pairs trading
 - data management
 - cointegration
 - signals
