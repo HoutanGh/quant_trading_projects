@@ -41,7 +41,7 @@ def calc_spread(pairs_df):
     z_score = (spread - mean) / std
 
     
-    return z_score
+    return z_score, spread, std
 
 # trading rules
 
@@ -58,5 +58,5 @@ if __name__ == "__main__":
     pairs_df = find_cointegrated_pairs(data)
     print(f"Cointegrated Pairs:\n {pairs_df}")
 
-    spread = calc_spread(pairs_df)
-    print((len(spread) / len(spread.isna())) * 100) 
+    z_score, _, _1 = calc_spread(pairs_df)
+    print((len(z_score) / len(z_score.isna())) * 100) 
