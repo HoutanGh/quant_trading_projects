@@ -5,7 +5,7 @@ from statsmodels.tsa.stattools import coint
 import matplotlib.pyplot as plt
 
 # data loading
-tickers =['GME', 'AMC', 'BB', 'NOK']
+tickers =['GME', 'AMC', 'BB', 'NOK', 'CSCO']
 data = yf.download(tickers, start='2021-01-01', end='2025-01-01', auto_adjust=False)['Adj Close']
 
 print(data.head())
@@ -27,14 +27,16 @@ def find_cointegrated_pairs(data):
             # print(score, pvalue) # should just get one for each variable
             if pvalue < 0.05:
                 pairs.append((data.columns[i], data.columns[j], pvalue))
-        return pd.DataFrame(pairs, columns=['stock1', 'stock2', 'pvalue'])
+        
+    return pd.DataFrame(pairs, columns=['stock1', 'stock2', 'pvalue'])
     
 
 
 def calc_spread(pairs_df):
     stock1, stock2 = pairs_df['stock1'], pairs_df['stock2']
-    print(stock1, stock2)
+    # print(stock1, stock2)
     spread = data[stock1] - data[stock2]
+    print(spread)
 
     mean = spread.rolling(30).mean()
     std = spread.rolling(30).std()
