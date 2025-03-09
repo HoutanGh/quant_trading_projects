@@ -41,7 +41,7 @@ def calc_spread(pairs_df):
     z_score = (spread - mean) / std
 
     
-    return z_scoreS
+    return z_score
 
 # trading rules
 
