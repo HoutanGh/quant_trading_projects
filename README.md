@@ -1,3 +1,9 @@
+### Going again
+- [ ] Market Dashboard
+- [ ] Pairs Trading
+- [ ] Statistical Aribtrage
+
+___
 First project - GARCH Model
 Second project - MACD Strategy
 Third Project - Monte Carlo (made it, its own repository)
